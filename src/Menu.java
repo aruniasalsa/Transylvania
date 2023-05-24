@@ -975,7 +975,7 @@ public class Menu extends javax.swing.JFrame {
             doc.add(paragraph5);
             
         }catch(Exception e){
-//            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
         doc.close();
         int a = JOptionPane.showConfirmDialog(null, "Do you want to print bill?","Select",JOptionPane.YES_NO_OPTION);

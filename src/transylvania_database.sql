@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 07:32 PM
+-- Generation Time: May 25, 2023 at 12:02 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -55,6 +55,7 @@ CREATE TABLE `customers_check_in` (
   `bed` varchar(100) NOT NULL,
   `nomor_kamar` int(11) NOT NULL,
   `harga_per_hari` int(10) NOT NULL,
+  `stay_hari` varchar(200) NOT NULL,
   `total_amount` varchar(200) NOT NULL,
   `check_out` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -63,8 +64,11 @@ CREATE TABLE `customers_check_in` (
 -- Dumping data for table `customers_check_in`
 --
 
-INSERT INTO `customers_check_in` (`id`, `nama`, `email`, `tanggal`, `hari`, `tipe_kamar`, `bed`, `nomor_kamar`, `harga_per_hari`, `total_amount`, `check_out`) VALUES
-(1, 'ilam', 'ilamdoblay@gmail.com', '24/05/2023', 4, 'Standard Room', 'Single Bed', 304, 400000, 'NULL', 'NULL');
+INSERT INTO `customers_check_in` (`id`, `nama`, `email`, `tanggal`, `hari`, `tipe_kamar`, `bed`, `nomor_kamar`, `harga_per_hari`, `stay_hari`, `total_amount`, `check_out`) VALUES
+(1, 'ilam', 'ilamdoblay@gmail.com', '24/05/2023', 4, 'Standard Room', 'Single Bed', 304, 400000, '', '', ''),
+(2, 'arun', 'aruniafais@gmail.com', '25/05/2023', 2, 'Standard Room', 'Single Bed', 305, 400000, '1', '400000.0', '25/05/2023'),
+(3, 'test', 'test@gmail.com', '25/05/2023', 2, 'Suite Room', 'Twin Bed', 1, 1000000, '1', '1000000.0', '25/05/2023'),
+(4, 'test', 'test@gmail.com', '25/05/2023', 2, 'Deluxe Room', 'Twin Bed', 209, 800000, '1', '800000.0', '25/05/2023');
 
 -- --------------------------------------------------------
 
@@ -159,12 +163,13 @@ INSERT INTO `room` (`room_no`, `room_type`, `bed`, `price`, `status`) VALUES
 ('302', 'Standard Room', 'Single Bed', 400000, 'Booked'),
 ('303', 'Standard Room', 'Single Bed', 400000, 'Booked'),
 ('304', 'Standard Room', 'Single Bed', 400000, 'Booked'),
-('305', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
+('305', 'Standard Room', 'Single Bed', 400000, 'Booked'),
 ('306', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('307', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('308', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('309', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
-('310', 'Standard Room', 'Twin Bed', 600000, 'Not Booked');
+('310', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
+('001', 'Suite Room', 'Twin Bed', 1000000, 'Booked');
 
 -- --------------------------------------------------------
 
@@ -222,7 +227,7 @@ ALTER TABLE `sign_up`
 -- AUTO_INCREMENT for table `customers_check_in`
 --
 ALTER TABLE `customers_check_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sign_up`
