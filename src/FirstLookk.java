@@ -1,4 +1,4 @@
-package slide;
+
 
 
 import java.awt.Color;
@@ -12,12 +12,12 @@ import java.awt.Color;
  *
  * @author Asus
  */
-public class tes extends javax.swing.JFrame {
+public class FirstLookk extends javax.swing.JFrame {
 
     /**
      * Creates new form tes
      */
-    public tes() {
+    public FirstLookk() {
         initComponents();
         getContentPane().setBackground(new Color(255, 255, 255));
        slideshow1.initSlideshow( new Slide1(), new Slide2(),new Slide3());
@@ -86,20 +86,23 @@ public class tes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLookk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLookk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLookk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLookk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new tes().setVisible(true);
+                new FirstLookk().setVisible(true);
             }
         });
     }

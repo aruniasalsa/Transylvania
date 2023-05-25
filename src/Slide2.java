@@ -1,4 +1,4 @@
-package slide;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,12 +11,12 @@ package slide;
  *
  * @author RAVEN
  */
-public class Slide1 extends javax.swing.JPanel {
+public class Slide2 extends javax.swing.JPanel {
 
     /**
      * Creates new form Slide1
      */
-    public Slide1() {
+    public Slide2() {
         initComponents();
     }
 
@@ -31,17 +31,17 @@ public class Slide1 extends javax.swing.JPanel {
 
         pictureBox1 = new swing.PictureBox();
 
-        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/9.png"))); // NOI18N
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/6.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
+            .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(pictureBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

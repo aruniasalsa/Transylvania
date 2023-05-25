@@ -93,7 +93,7 @@ public class admin_manage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(148, 148, 148)
                         .addComponent(jLabel4)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -112,7 +112,7 @@ public class admin_manage extends javax.swing.JFrame {
                         .addComponent(jLabel18)))
                 .addGap(36, 36, 36)
                 .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
