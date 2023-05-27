@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2023 at 12:02 AM
+-- Generation Time: May 27, 2023 at 04:53 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -59,16 +59,6 @@ CREATE TABLE `customers_check_in` (
   `total_amount` varchar(200) NOT NULL,
   `check_out` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `customers_check_in`
---
-
-INSERT INTO `customers_check_in` (`id`, `nama`, `email`, `tanggal`, `hari`, `tipe_kamar`, `bed`, `nomor_kamar`, `harga_per_hari`, `stay_hari`, `total_amount`, `check_out`) VALUES
-(1, 'ilam', 'ilamdoblay@gmail.com', '24/05/2023', 4, 'Standard Room', 'Single Bed', 304, 400000, '', '', ''),
-(2, 'arun', 'aruniafais@gmail.com', '25/05/2023', 2, 'Standard Room', 'Single Bed', 305, 400000, '1', '400000.0', '25/05/2023'),
-(3, 'test', 'test@gmail.com', '25/05/2023', 2, 'Suite Room', 'Twin Bed', 1, 1000000, '1', '1000000.0', '25/05/2023'),
-(4, 'test', 'test@gmail.com', '25/05/2023', 2, 'Deluxe Room', 'Twin Bed', 209, 800000, '1', '800000.0', '25/05/2023');
 
 -- --------------------------------------------------------
 
@@ -139,37 +129,38 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`room_no`, `room_type`, `bed`, `price`, `status`) VALUES
-('101', 'Suite Room', 'Single Bed', 800000, 'Booked'),
-('102', 'Suite Room', 'Single Bed', 800000, 'Booked'),
-('103', 'Suite Room', 'Single Bed', 800000, 'Booked'),
-('104', 'Suite Room', 'Single Bed', 800000, 'Booked'),
-('105', 'Suite Room', 'Single Bed', 800000, 'Booked'),
-('106', 'Suite Room', 'Twin Bed', 1000000, 'Booked'),
-('107', 'Suite Room', 'Twin Bed', 1000000, 'Booked'),
-('108', 'Suite Room', 'Twin Bed', 1000000, 'Booked'),
-('109', 'Suite Room', 'Twin Bed', 1000000, 'Booked'),
-('110', 'Suite Room', 'Twin Bed', 1000000, 'Booked'),
-('201', 'Deluxe Room', 'Single Bed', 600000, 'Booked'),
-('202', 'Deluxe Room', 'Single Bed', 600000, 'Booked'),
-('203', 'Deluxe Room', 'Single Bed', 600000, 'Booked'),
-('204', 'Deluxe Room', 'Single Bed', 600000, 'Booked'),
-('205', 'Deluxe Room', 'Single Bed', 600000, 'Booked'),
-('206', 'Deluxe Room', 'Twin Bed', 800000, 'Booked'),
-('207', 'Deluxe Room', 'Twin Bed', 800000, 'Booked'),
-('208', 'Deluxe Room', 'Twin Bed', 800000, 'Booked'),
+('101', 'Suite Room', 'Single Bed', 800000, 'Not Booked'),
+('102', 'Suite Room', 'Single Bed', 800000, 'Not Booked'),
+('103', 'Suite Room', 'Single Bed', 800000, 'Not Booked'),
+('104', 'Suite Room', 'Single Bed', 800000, 'Not Booked'),
+('105', 'Suite Room', 'Single Bed', 800000, 'Not Booked'),
+('106', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('107', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('108', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('109', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('110', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('201', 'Deluxe Room', 'Single Bed', 600000, 'Not Booked'),
+('202', 'Deluxe Room', 'Single Bed', 600000, 'Not Booked'),
+('203', 'Deluxe Room', 'Single Bed', 600000, 'Not Booked'),
+('204', 'Deluxe Room', 'Single Bed', 600000, 'Not Booked'),
+('205', 'Deluxe Room', 'Single Bed', 600000, 'Not Booked'),
+('206', 'Deluxe Room', 'Twin Bed', 800000, 'Not Booked'),
+('207', 'Deluxe Room', 'Twin Bed', 800000, 'Not Booked'),
+('208', 'Deluxe Room', 'Twin Bed', 800000, 'Not Booked'),
 ('209', 'Deluxe Room', 'Twin Bed', 800000, 'Not Booked'),
 ('210', 'Deluxe Room', 'Twin Bed', 800000, 'Not Booked'),
-('301', 'Standard Room', 'Single Bed', 400000, 'Booked'),
-('302', 'Standard Room', 'Single Bed', 400000, 'Booked'),
-('303', 'Standard Room', 'Single Bed', 400000, 'Booked'),
-('304', 'Standard Room', 'Single Bed', 400000, 'Booked'),
-('305', 'Standard Room', 'Single Bed', 400000, 'Booked'),
+('301', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
+('302', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
+('303', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
+('304', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
+('305', 'Standard Room', 'Single Bed', 400000, 'Not Booked'),
 ('306', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('307', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('308', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('309', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
 ('310', 'Standard Room', 'Twin Bed', 600000, 'Not Booked'),
-('001', 'Suite Room', 'Twin Bed', 1000000, 'Booked');
+('001', 'Suite Room', 'Twin Bed', 1000000, 'Not Booked'),
+('001', 'Deluxe Room', 'Twin Bed', 850000, 'Not Booked');
 
 -- --------------------------------------------------------
 
@@ -194,8 +185,7 @@ CREATE TABLE `sign_up` (
 
 INSERT INTO `sign_up` (`id`, `nama`, `jenis_kelamin`, `email`, `password`, `nomor_hp`, `security_question`, `jawab`) VALUES
 (1, 'Arunia Salsanur Fais', 'Female', 'aruniafais@gmail.com', 'arun5545', '081393235006', 'what month were you born?', 'April'),
-(9, 'ilam', 'Male', 'ilamdoblay@gmail.com', '12345678', '085776619935', 'what month were you born?', 'April'),
-(10, 'ilham', 'Male', 'ilamdoblay@gmail.com', '12345678', '085776619935', 'what month were you born?', 'april');
+(2, 'ilam', 'Male', 'ilamdoblay@gmail.com', '12345678', '085776619935', 'what month were you born?', 'April');
 
 --
 -- Indexes for dumped tables
@@ -227,7 +217,7 @@ ALTER TABLE `sign_up`
 -- AUTO_INCREMENT for table `customers_check_in`
 --
 ALTER TABLE `customers_check_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sign_up`

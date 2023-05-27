@@ -8,11 +8,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import transylvania.ms.*;
 
@@ -61,13 +64,7 @@ public class Menu extends javax.swing.JFrame {
         SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyy");
         Calendar cal = Calendar.getInstance();
         txtDate.setText(myFormat.format(cal.getTime()));
-        txtNameCO.setEditable(false);
-        txtEmailCO.setEditable(false);
-        txtTanggalCI.setEditable(false);
-        txtTanggalCO.setEditable(false);
-        txtHargaHarian.setEditable(false);
-        txtStayHarian.setEditable(false);
-        txtTotalCO.setEditable(false);
+        setEdit();
         
 //        admin_page.setVisible(false);
     }
@@ -77,7 +74,27 @@ public class Menu extends javax.swing.JFrame {
     String priceRoom;
     
     int id = 1;
-    
+    public void setEdit(){
+        txtNameCO.setEditable(false);
+        txtEmailCO.setEditable(false);
+        txtTanggalCI.setEditable(false);
+        txtTanggalCO.setEditable(false);
+        txtHargaHarian.setEditable(false);
+        txtStayHarian.setEditable(false);
+        txtTotalCO.setEditable(false);
+    }
+    public void setTxt(){
+        txtNamaCheckin.setText("");
+        txtNamaEmailCheckIn.setText("");
+        txtDate.setText("");
+        days.setText("");
+        jComboBox1.setSelectedIndex(0);
+        single.setSelected(false);
+        twin.setSelected(false);
+        price.setText("");
+        totalPrice.setText("");
+        jComboBox2.setSelectedIndex(0);
+    }
     public void roomDetails(){
         jComboBox2.removeAllItems();
         totalPrice.setText("");
@@ -403,6 +420,11 @@ public class Menu extends javax.swing.JFrame {
         printBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-bill-30.png"))); // NOI18N
         printBill.setText("Print Bill");
         printBill.setContentAreaFilled(false);
+        printBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printBillActionPerformed(evt);
+            }
+        });
 
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -787,7 +809,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        
         roomDetails();
+        
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -838,15 +862,13 @@ public class Menu extends javax.swing.JFrame {
                         checkBtn();
                         query = "insert into customers_check_in(id,nama,email,tanggal,hari,tipe_kamar,bed,nomor_kamar,harga_per_hari,stay_hari,total_amount,check_out) values("+id+",'"+nama+"','"+mail+"','"+checkIns+"','"+hari+"','"+kamar+"','"+kasur+"','"+nmrKamar+"','"+harga+"','NULL','NULL','NULL')";
                         insert_update.setData(query, "Check in SUCCESSFULL");
-                        setVisible(false);
-                        new Menu().setVisible(true);
+                            
 //            JOptionPane.showMessageDialog(null, "Check In Successfull! Please Print the Bill to Make Payment!"); 
                     }
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
-            
              
         }
     }//GEN-LAST:event_checkInButtonActionPerformed
@@ -868,14 +890,19 @@ public class Menu extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
         roomNo = (String)jComboBox2.getSelectedItem();  
+        
         try{
             rs = select.getData("select *from room where room_no ='"+roomNo+"'");
             while(rs.next()){
-                totalPrice.setText(rs.getString(4));
+                price.setText(rs.getString(4));
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
+        int a = Integer.parseInt(days.getText());
+        int b = Integer.parseInt(price.getText());
+        int c = a*b;
+        totalPrice.setText(String.valueOf(c));
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -939,20 +966,23 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         String namauser = txtNameCO.getText();
         String email = txtEmailCO.getText();
-        
+
         String tglCot = txtTanggalCO.getText();
         String stayPHari = txtStayHarian.getText();
         String hargaTotal = txtTotalCO.getText();
         roomNo = txtCariKamar.getText();
+        if(txtCariKamar.getText().equals("")){
+        JOptionPane.showMessageDialog(null,"Search Room Number if You want to Check Out!");
+        }else{
         String query = "update customers_check_in set stay_hari ='"+stayPHari+"',total_amount ='"+hargaTotal+"',check_out ='"+tglCot+"' where id ='"+id+"'";
         insert_update.setData(query, "");
-        query = "update room set status='Not Booked' where room_no ='"+roomNo+"'";
+        query = "update room set status ='Not Booked' where room_no ='"+roomNo+"'";
         insert_update.setData(query, "");
         String path = "D:\\";
         com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
         try{
             PdfWriter.getInstance(doc, new FileOutputStream(path + "" + id + ".pdf"));
-            
+
             doc.open();
             Paragraph paragraph1 = new Paragraph("                               TRANSYLVANIA MANAGEMENT System\n");
             doc.add(paragraph1);
@@ -973,7 +1003,11 @@ public class Menu extends javax.swing.JFrame {
             doc.add(paragraph2);
             Paragraph paragraph5 = new Paragraph("Thank You, Please Visit Again ^^");
             doc.add(paragraph5);
-            
+            Paragraph paragraph6 = new Paragraph("                                   KUHAKU TEAM;P");
+            doc.add(paragraph6);
+            Paragraph paragraph7 = new Paragraph("1.  Arunia Salsa\n2.  Sharil\n3.  Ilham");
+            doc.add(paragraph7);
+
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
@@ -983,21 +1017,90 @@ public class Menu extends javax.swing.JFrame {
             try{
                 if((new File("D:\\"+id+".pdf")).exists()){
                     Process p = Runtime
-                            .getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler D:\\"+id+".pdf");
-                            
-                }else{
-                    System.out.println("File not Exists");
+                    .getRuntime()
+                    .exec("rundll32 url.dll,FileProtocolHandler D:\\"+id+".pdf");
+
+                    }else{
+                        System.out.println("File not Exists");
+                    }
+                }catch(Exception e){
+                    JOptionPane.showConfirmDialog(null,e);
                 }
-            }catch(Exception e){
-                JOptionPane.showConfirmDialog(null,e);
             }
+
+            setVisible(false);
+            new Menu().setVisible(true);
         }
-        setVisible(false);
-        new Menu().setVisible(true);
-        
-        
     }//GEN-LAST:event_jButton8ActionPerformed
+    //blm kelar
+    private void printBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBillActionPerformed
+        // TODO add your handling code here:
+        String namauser = txtNamaCheckin.getText();
+        String email = txtNamaEmailCheckIn.getText();
+
+        String tgl = txtDate.getText();
+        String stayPHari = days.getText();
+        String hargaPhari = price.getText();
+        String hargaTotal = txtTotalCO.getText();
+        roomNo = txtCariKamar.getText();
+        checkBtn();
+        
+        String query = "update customers_check_in set stay_hari ='"+stayPHari+"',total_amount ='"+hargaTotal+"',check_out ='"+tgl+"' where id ='"+id+"'";
+        insert_update.setData(query, "");
+        query = "update room set status ='Booked' where room_no ='"+roomNo+"'";
+        insert_update.setData(query, "");
+        String path = "D:\\";
+        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+        try{
+            PdfWriter.getInstance(doc, new FileOutputStream(path + "" + id + ".pdf"));
+
+            doc.open();
+            Paragraph paragraph1 = new Paragraph("                               TRANSYLVANIA MANAGEMENT System\n");
+            doc.add(paragraph1);
+            Paragraph paragraph2 = new Paragraph("##############################################################################");
+            doc.add(paragraph2);
+            Paragraph paragraph3 = new Paragraph("\tBill ID: "+id+"\n Customer Details:\nName: "+namauser+"\nEmail: "+email+"\n");
+            doc.add(paragraph3);
+            doc.add(paragraph2);
+            Paragraph paragraph4 = new Paragraph("\tRoom Details:\nNumber: "+(String)jComboBox2.getSelectedItem()+"\nType: "+(String)jComboBox1.getSelectedItem()+"\nBed: "+bed+"\nPrice per Day: "+price.getText()+"\n");
+            doc.add(paragraph4);
+            doc.add(paragraph2);
+            PdfPTable tb1 = new PdfPTable(4);
+            tb1.addCell("Check in Date: " + tgl+"");
+            tb1.addCell("Number of Days Stay: " + stayPHari+"");
+            tb1.addCell("Total Amount Paid: " + hargaTotal+"");
+            doc.add(tb1);
+            doc.add(paragraph2);
+            Paragraph paragraph5 = new Paragraph("Thank You, Dont Forget to Payment:))");
+            doc.add(paragraph5);
+            Paragraph paragraph6 = new Paragraph("                                   KUHAKU TEAM;P");
+            doc.add(paragraph6);
+            Paragraph paragraph7 = new Paragraph("1.  Arunia Salsa\n2.  Sharil\n3.  Ilham");
+            doc.add(paragraph7);
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        doc.close();
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to print bill?","Select",JOptionPane.YES_NO_OPTION);
+        if(a == 0){
+            try{
+                if((new File("D:\\"+id+".pdf")).exists()){
+                    Process p = Runtime
+                    .getRuntime()
+                    .exec("rundll32 url.dll,FileProtocolHandler D:\\"+id+".pdf");
+
+                    }else{
+                        System.out.println("File not Exists");
+                    }
+                }catch(Exception e){
+                    JOptionPane.showConfirmDialog(null,e);
+                }
+            }
+
+            setVisible(false);
+            new Menu().setVisible(true);
+    }//GEN-LAST:event_printBillActionPerformed
 
     /**
      * @param args the command line arguments

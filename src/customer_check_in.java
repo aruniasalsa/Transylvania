@@ -27,6 +27,9 @@ public class customer_check_in extends javax.swing.JFrame {
      */
     public customer_check_in() {
         initComponents();
+        showTable();
+        setEdit();
+        
     }
     String bed;
     String roomNo;
@@ -332,6 +335,9 @@ public class customer_check_in extends javax.swing.JFrame {
         String stayPHari = txtStayHarian.getText();
         String hargaTotal = txtTotalCO.getText();
         roomNo = txtCariKamar.getText();
+        if(txtCariKamar.getText().equals("")){
+        JOptionPane.showMessageDialog(null,"Search Room Number if You want to Check Out!");
+        }else{
         String query = "update customers_check_in set stay_hari ='"+stayPHari+"',total_amount ='"+hargaTotal+"',check_out ='"+tglCot+"' where id ='"+id+"'";
         insert_update.setData(query, "");
         query = "update room set status ='Not Booked' where room_no ='"+roomNo+"'";
@@ -361,6 +367,10 @@ public class customer_check_in extends javax.swing.JFrame {
             doc.add(paragraph2);
             Paragraph paragraph5 = new Paragraph("Thank You, Please Visit Again ^^");
             doc.add(paragraph5);
+            Paragraph paragraph6 = new Paragraph("                                   KUHAKU TEAM;P");
+            doc.add(paragraph6);
+            Paragraph paragraph7 = new Paragraph("1.  Arunia Salsa\n2.  Sharil\n3.  Ilham");
+            doc.add(paragraph7);
 
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -384,6 +394,8 @@ public class customer_check_in extends javax.swing.JFrame {
 
             setVisible(false);
             new Menu().setVisible(true);
+        }
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -470,7 +482,28 @@ public class customer_check_in extends javax.swing.JFrame {
             }
         });
     }
+        public void showTable(){
+            rs = select.getData("select *from customers_check_in");
+            DefaultTableModel model =(DefaultTableModel)jTable2.getModel();
+            
+            try{
+                while(rs.next()){
+                  model.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11)});
 
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    public void setEdit(){
+        txtNameCO.setEditable(false);
+        txtEmailCO.setEditable(false);
+        txtTanggalCI.setEditable(false);
+        txtTanggalCO.setEditable(false);
+        txtHargaHarian.setEditable(false);
+        txtStayHarian.setEditable(false);
+        txtTotalCO.setEditable(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel checkout;
     private javax.swing.JButton jButton11;

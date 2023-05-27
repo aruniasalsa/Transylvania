@@ -17,8 +17,12 @@ public class admin_manage extends javax.swing.JFrame {
      */
     public admin_manage() {
         initComponents();
+        showTable();
     }
-
+    public Statement stm;
+    public Connection con;
+    public ResultSet rs = null;
+    public PreparedStatement pst;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,6 +77,11 @@ public class admin_manage extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Bodoni MT Black", 0, 12)); // NOI18N
         jLabel4.setText("SEE WHO'S CHECK IN ?");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -292,6 +301,12 @@ public class admin_manage extends javax.swing.JFrame {
         new admin_manage().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        customer_check_in user = new customer_check_in();
+        user.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -326,7 +341,20 @@ public class admin_manage extends javax.swing.JFrame {
             }
         });
     }
+        public void showTable(){
+            rs = select.getData("select *from room");
+            DefaultTableModel model =(DefaultTableModel)jTable2.getModel();
+            
+            try{
+                while(rs.next()){
+                  model.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)});
 
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBed;
     private javax.swing.JComboBox<String> comboRoom;
