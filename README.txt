@@ -2,7 +2,7 @@ File Ini menjelaskan kelengkapan berkas proyek akhir kami yang berjudul Aplikasi
 
 1. File database sql dengan nama database: transylvania_database.sql
 2. Source code project NetBeans
-3. Link Repository Github:
+3. Link Repository Github: https://github.com/aruniasalsa/Transylvania.git
 
 Kelompok KUHAKU:
 Arunia Salsanur Fais, B, 1402022010
