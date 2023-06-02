@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
  * @author 
  */
 public class insert_update {
+        public static Connection con;
+       public static Statement st = null;
     public static void setData(String Query,String msg){
-        Connection con = null;
-        Statement st = null;
         try{
             con = conn.getCon();
             st = con.createStatement();
@@ -29,5 +29,11 @@ public class insert_update {
             
         } 
         }
+    }
+    public static void setCon(Connection con){
+      
+    }
+    public Connection getCon(){
+        return con;
     }
 }

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import transylvania.ms.Check.Cek;
 import transylvania.ms.conn;
 import transylvania.ms.insert_update;
 import transylvania.ms.select;
@@ -22,7 +23,7 @@ import transylvania.ms.select;
  *
  * @author Asus
  */
-public class HomePage extends javax.swing.JFrame {
+public class HomePage extends javax.swing.JFrame implements Cek {
 
     /**
      * Creates new form HomePage
@@ -31,6 +32,18 @@ public class HomePage extends javax.swing.JFrame {
     public Connection con;
     public ResultSet rs = null;
     public PreparedStatement pst;
+
+    @Override
+    public void setEdit() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setTxt() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+ 
     
     public class DatabaseConnection {
     public  DatabaseConnection(){
@@ -41,13 +54,46 @@ public class HomePage extends javax.swing.JFrame {
            Class.forName("com.mysql.cj.jdbc.Driver");
            con = DriverManager.getConnection(DATABASE_URL, user, password); 
            stm = con.createStatement();   
-           JOptionPane.showMessageDialog(null, "Connection Successfully!");
+           
        } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "Connection Failed!");
        }
     }
-    
 }
+       @Override
+    public void checktxt(){
+        name.setText("");
+        male.setSelected(false);
+        female.setSelected(false);
+        email.setText("");
+        password.setText("");
+        showPw.setSelected(false);
+        phone.setText("");
+        question.setSelectedIndex(0);
+        answer.setText("");
+    }
+    
+    public boolean checkLogin(String nama, String email, String password)
+            {
+                
+                try {
+                    String sqlcom = "select * from sign_up";
+                    rs = con.createStatement().executeQuery(sqlcom);
+                    while(rs.next()){
+                        if(nama.equalsIgnoreCase(rs.getString("nama")) && email.equals(rs.getString("email")) && password.equals(rs.getString("password"))){
+                            
+                            return true;
+                            
+                            
+                        } 
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+                return false;
+            }  
+    
+                
         
     public HomePage() {
         initComponents();
@@ -82,42 +128,8 @@ public class HomePage extends javax.swing.JFrame {
         }
             return false;
     }
-     public boolean checkLogin(String nama, String email, String password){
-                
-                try {
-                    
-                     rs = stm.executeQuery("select * from sign_up");
-                    while(rs.next()){
-                        
-                        if(nama.equals("") || email.equals("") || password.equals("")){
-                            JOptionPane.showMessageDialog(null, "Every Field is Required!"); 
-                        }else if (nama.equals("")){
-                            JOptionPane.showMessageDialog(null, "Please Enter the Name!");
-                        }else if(!nama.equalsIgnoreCase(rs.getString("nama"))){
-                                JOptionPane.showMessageDialog(null, "Please Enter the Correct Name!");
-                               
-                        } else if(email.equals("")){
-                                JOptionPane.showMessageDialog(null, "Please Enter the Email!");
-                               
-                        } else if(!email.equals(rs.getString("email"))){ 
-                                   JOptionPane.showMessageDialog(null, "Incorrect Email!");
-                        } else if(password.equals("")){
-                                JOptionPane.showMessageDialog(null, "Please Enter the Password!");    
-                        } else if (!password.equals(rs.getString("password"))){
-                                JOptionPane.showMessageDialog(null, "Incorrect Password!");
-                        }else if(nama.equalsIgnoreCase(rs.getString("nama")) || email.equals(rs.getString("email")) || password.equals(rs.getString("password"))){
-                            return true;
-                        }
-                                
-                             
-                    }
-//                    JOptionPane.showMessageDialog(null,"BANGSAT");
-                } catch (Exception e) {
-                    System.out.println(e.toString());
-                }
-                return false;
-            }  
-    
+
+         
     
     
     /**
@@ -195,6 +207,7 @@ public class HomePage extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -327,7 +340,7 @@ public class HomePage extends javax.swing.JFrame {
                         .addComponent(jToggleButton1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
-                        .addGap(0, 92, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(loginLayout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,7 +391,7 @@ public class HomePage extends javax.swing.JFrame {
                     .addComponent(forgotPassword))
                 .addGap(18, 18, 18)
                 .addComponent(goToSign2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButton1)
                 .addContainerGap())
         );
@@ -625,7 +638,7 @@ public class HomePage extends javax.swing.JFrame {
                     .addGroup(forgotpassLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         forgotpassLayout.setVerticalGroup(
@@ -745,6 +758,11 @@ public class HomePage extends javax.swing.JFrame {
         });
 
         question.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select your Security Question", "Who is your mother?", "What is the name of the town when you where born?", "What month were you born?", "What was your first car?" }));
+        question.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                questionActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -765,6 +783,7 @@ public class HomePage extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-close-30.png"))); // NOI18N
         jButton7.setContentAreaFilled(false);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -819,7 +838,7 @@ public class HomePage extends javax.swing.JFrame {
                                 .addGap(85, 85, 85)
                                 .addComponent(female, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(goToLogin))
-                .addGap(0, 86, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         signUpLayout.setVerticalGroup(
             signUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -898,15 +917,22 @@ public class HomePage extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(141, 193, 193));
         jPanel5.setPreferredSize(new java.awt.Dimension(450, 350));
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(jLabel6)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 87, Short.MAX_VALUE)
+                .addComponent(jLabel6))
         );
 
         javax.swing.GroupLayout homePageLayout = new javax.swing.GroupLayout(homePage);
@@ -953,6 +979,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void goToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToLoginActionPerformed
         // TODO add your handling code here:
+        
         signUp.setVisible(false);
         login.setVisible(true);
        
@@ -985,35 +1012,50 @@ public class HomePage extends javax.swing.JFrame {
         String noHp = phone.getText();
         String securityQuestion = "";
         String jawab = answer.getText();
-     
-        if(name.getText().equals("") || email.getText().equals("") || password.getText().equals("") || phone.getText().equals("")){
-        JOptionPane.showMessageDialog(null, "Every Field is Required!");
-        } else if(!male.isSelected() && !female.isSelected()){
-            JOptionPane.showMessageDialog(null, "Select Your Gender!");
-             
-        }else if(password.getText().length() < 8){
-            JOptionPane.showMessageDialog(null, "The password must have at least 8 characters");
-        }else if(question.getSelectedItem().equals("Select your Security Question")){
-            JOptionPane.showMessageDialog(null, "Select the Security Question!");
-            
-        } else if(answer.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Answer the Security Question");
-            
-        }else{
-            if (male.isSelected()){
-                jenisKelamin = "Male";
-            } else if(female.isSelected()){
-                jenisKelamin = "Female";
+        boolean cek = true;
+        for(int i = 0; i < noHp.length(); i++){
+            if (!Character.isDigit(noHp.charAt(i))){
+                cek = false;    
             } 
+        }
+        
+        
+            if(nama.equals("")){
+                JOptionPane.showMessageDialog(null, "Please Enter Your Name!");
+            }else if(!male.isSelected() && !female.isSelected()){
+                JOptionPane.showMessageDialog(null, "Select Your Gender!");
+            }else if(userEmail.equals("")){
+                JOptionPane.showMessageDialog(null, "Please Enter the Email!");
+            }else if(pw.equals("")){
+                JOptionPane.showMessageDialog(null, "Please Enter the Password");
+            }else if(pw.length() > 0 && pw.length() < 8){
+                JOptionPane.showMessageDialog(null, "The password must have at least 8 characters");
+            }else if(noHp.equals("")){
+                JOptionPane.showMessageDialog(null, "Please Enter Your Mobile Number!");
+            } else if( question.getSelectedItem().equals("Select your Security Question")){
+                JOptionPane.showMessageDialog(null, "Select the Security Questions!!");
+            }else if(jawab.equals("")){
+                JOptionPane.showMessageDialog(null, "Please Answer the Question!");            
+            }else{
+                if (male.isSelected()){
+                    jenisKelamin = "Male";
+                } else if(female.isSelected()){
+                    jenisKelamin = "Female";
+            } 
+                
+                
             if(question.getSelectedItem().equals("Who is your mother?")){
                 securityQuestion = "Who is your mother";
             } else if (question.getSelectedItem().equals("What is the name of the town when you where born?")){
                 securityQuestion = "What is the name of the town when you where born?";
             } else if (question.getSelectedItem().equals("What month were you born?")){
                 securityQuestion = "what month were you born?";
+            }else if (question.getSelectedItem().equals("What was your first car?")){
+                securityQuestion = "What was your first car?";
             }
             String sql = "insert into sign_up (nama, jenis_kelamin, email, password, nomor_hp, security_question, jawab) values (?, ?, ?, ?,?, ?, ?)";
-                try{
+            if(cek){    
+            try{
                     pst = con.prepareStatement(sql);
                     pst.setString(1,  nama);
                     pst.setString(2, jenisKelamin);
@@ -1023,17 +1065,24 @@ public class HomePage extends javax.swing.JFrame {
                     pst.setString(6, securityQuestion);
                     pst.setString(7, jawab);
                     pst.executeUpdate();
-                   JOptionPane.showMessageDialog(null, "Sign Up Successfully!");
+                    JOptionPane.showMessageDialog(null, "Sign Up Successfully!");
+                    signUp.setVisible(false);
+                    login.setVisible(true);
+                    name.setText("");
+                    email.setText("");
+                    buttonGroup1.clearSelection();
+                    question.setSelectedIndex(0);
+                    password.setText("");
+                    phone.setText("");
+                    answer.setText("");
                 }catch(HeadlessException | SQLException ex){
                      JOptionPane.showMessageDialog(this, ex.getMessage());
                 } 
-        }
-        
-       
-        
-        
-        
-        
+            }else{
+                    JOptionPane.showMessageDialog(null, "Please, Enter ur correct Mobile Phone");
+                       return;
+                    }
+            }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1103,22 +1152,23 @@ public class HomePage extends javax.swing.JFrame {
         String namaUser = loginName.getText();
         String emailLogin = loginEmail.getText();
         String passwLogin =   pwIn.getText();
-//        checkLogin(namaUser, emailLogin, passwLogin);
-        if(checkLogin(namaUser, emailLogin, passwLogin)){
-            if (checkLogin(namaUser, emailLogin, passwLogin)){
-                JOptionPane.showMessageDialog(null, "Halo, " + namaUser, "Message", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            Menu goToPage = new Menu();
-            goToPage.setVisible(true); 
-            }
+       
+         if(checkLogin(namaUser, emailLogin, passwLogin)){
+             JOptionPane.showMessageDialog(null, "Sign In Succesfull");
+                loginName.setText("");
+                loginEmail.setText("");
+                pwIn.setText("");
+                    
+              
+        dispose();
+        Menu go = new Menu();
+        go.setVisible(true); 
+        }else{
+             JOptionPane.showMessageDialog(null, "Enter the Data Correctly!");
         }
-          
             
-            
-        
-        
-
-        
+      
+         
     }//GEN-LAST:event_signInActionPerformed
 
     private void showPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPwActionPerformed
@@ -1165,6 +1215,10 @@ public class HomePage extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        email1.setText("");
+        sq.setText("");
+        answer1.setText("");
+        password1.setText("");
         forgotpass.setVisible(false);
         login.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1224,6 +1278,10 @@ public class HomePage extends javax.swing.JFrame {
         login.setVisible(false);
         admin_login.setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void questionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_questionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1301,6 +1359,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
